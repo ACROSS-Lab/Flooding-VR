@@ -8,7 +8,7 @@ using System.Linq;
 
 public class ConnectionManager : WebSocketConnector
 {
-     
+
     private ConnectionState currentState;
     private bool connectionRequested; 
 
@@ -27,10 +27,10 @@ public class ConnectionManager : WebSocketConnector
     public static ConnectionManager Instance = null;
 
     //use to seperate messages in the case where the middleware is not used
-    protected String MessageSeparator  = "|||";
+    public String MessageSeparator = "|||";
 
-private String AgentToSendInfo = "simulation[0].unity_linker[0]";
-     
+    private String AgentToSendInfo = "simulation[0].unity_linker[0]";
+
     
     // ############################################# UNITY FUNCTIONS #############################################
     void Awake() {
@@ -49,11 +49,7 @@ private String AgentToSendInfo = "simulation[0].unity_linker[0]";
 
     }
 
-    public string GetMessageSeparator()
-    {
-        return MessageSeparator;
-    }
-
+    
     // ############################################# CONNECTION HANDLER #############################################
     public void UpdateConnectionState(ConnectionState newState) {
         
@@ -88,7 +84,7 @@ private String AgentToSendInfo = "simulation[0].unity_linker[0]";
             var jsonId = new Dictionary<string, string> {
                 {"type", "connection"},
                 { "id", StaticInformation.getId() },
-                { "heartbeat", ""+ HeartbeatInMs}
+                { "set_heartbeat", UseHeartbeat ? "true": "false" }
             }; 
             string jsonStringId = JsonConvert.SerializeObject(jsonId);
             SendMessageToServer(jsonStringId, new Action<bool>((success) => {
@@ -105,6 +101,7 @@ private String AgentToSendInfo = "simulation[0].unity_linker[0]";
         if (e.IsText)
         {
            
+           // Debug.Log("e.Data: " + e.Data);
             JObject jsonObj = JObject.Parse(e.Data);
             string type = (string)jsonObj["type"];
            

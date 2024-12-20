@@ -40,18 +40,23 @@ public class PolygonGenerator
     }
 
 
-
     public GameObject GeneratePolygons(bool editMode, String name, List<int> points, PropertiesGAMA prop, int precision)
     {
-
-    
-        List <Vector2> pts = new List<Vector2>();
-        for (int i = 0; i < points.Count - 1; i = i+2)
+        List<Vector2> pts = new List<Vector2>();
+        for (int i = 0; i < points.Count - 1; i = i + 2)
         {
             Vector2 p = converter.fromGAMACRS2D(points[i], points[i + 1]);
             pts.Add(p);
         }
         Vector2[] MeshDataPoints = pts.ToArray();
+        return GeneratePolygons(editMode, name, MeshDataPoints, prop, precision);
+    }
+
+
+    public GameObject GeneratePolygons(bool editMode, String name, Vector2[] MeshDataPoints, PropertiesGAMA prop, int precision)
+    {
+   
+       
         //Color32 col = new Color32(BitConverter.GetBytes(prop.color[0])[0], BitConverter.GetBytes(prop.color[1])[0],
         //          BitConverter.GetBytes(prop.color[2])[0], BitConverter.GetBytes(prop.color[3])[0]);
 
@@ -63,19 +68,8 @@ public class PolygonGenerator
             {
                 mat = Resources.Load<Material>(prop.material);
             }
-
-            if (prop.red != -1 )
-            {
-                col = new Color32(BitConverter.GetBytes(prop.red)[0], BitConverter.GetBytes(prop.green)[0],
-                   BitConverter.GetBytes(prop.blue)[0], BitConverter.GetBytes(prop.alpha)[0]);
-            } else
-            {
-               if (mat != null)
-                {
-                    col = mat.color;
-                }
-            } 
-           
+            col = new Color32(BitConverter.GetBytes(prop.red)[0], BitConverter.GetBytes(prop.green)[0],
+                    BitConverter.GetBytes(prop.blue)[0], BitConverter.GetBytes(prop.alpha)[0]);
         }
         GameObject obj = GeneratePolygon(editMode, name, MeshDataPoints, ((float)prop.height) / precision, mat, col);
         
@@ -100,7 +94,6 @@ public class PolygonGenerator
     // Start is called before the first frame update
     GameObject GeneratePolygon(bool editMode, String name, Vector2[] MeshDataPoints, float extrusionHeight, Material mat, Color32 color)
     {
-      
         bool isUsingBottomMeshIn3D = false;
         bool isOutlineRendered = true;
         bool is3D = extrusionHeight != 0.0;
@@ -122,7 +115,6 @@ public class PolygonGenerator
         Vector3 pos = polyExtruderGO.transform.position;
         pos.y += offsetYBackgroundGeom;
         polyExtruderGO.transform.position = pos;
-
         polyExtruder.createPrism(editMode, name, extrusionHeight, MeshDataPoints, color, mat, is3D, isUsingBottomMeshIn3D);
         surroundMesh = polyExtruder.surroundMesh;
         bottomMesh = polyExtruder.bottomMesh;
@@ -133,5 +125,3 @@ public class PolygonGenerator
 
   
 }
-
-

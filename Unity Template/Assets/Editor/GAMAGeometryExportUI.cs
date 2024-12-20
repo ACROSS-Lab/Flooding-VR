@@ -7,7 +7,7 @@ using System.Diagnostics;
 public class GAMAGeometryExportUI : EditorWindow
 {
     public string ip = "localhost";
-    public string port = "8080";
+    public string port = "1000";
     public float GamaCRSCoefX = 1.0f;
     public float GamaCRSCoefY = 1.0f;
     public float GamaCRSOffsetX = 0.0f;

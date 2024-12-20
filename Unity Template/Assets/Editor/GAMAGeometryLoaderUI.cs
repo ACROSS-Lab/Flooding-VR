@@ -56,7 +56,7 @@ public class GAMAGeometryLoaderUI : EditorWindow
         if (GUILayout.Button("Import"))
         {
             EditorUtility.DisplayDialog("Importation of GAMA Geometries",
-                   "Click on Ok, then add the player in the middleware to load the data", "Ok");
+                   "Waiting for receiving geometries from GAMA", "Ok");
 
             /*if (runGAMA) { 
                 

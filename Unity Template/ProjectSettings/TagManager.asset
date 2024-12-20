@@ -4,14 +4,14 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - startPoint
+  - Zone_Fin
+  - endPoint
+  - Success
+  - Loose
   - Anchor
   - locomotion
-  - selectable
-  - Teleportation
-  - InvisibleWall
-  - HUD
-  - tree
-  - moto
+  - dyke
   - car
   layers:
   - Default

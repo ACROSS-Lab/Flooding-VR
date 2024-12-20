@@ -23,6 +23,9 @@ public class WorldJSONInfo
     public List<string> players;
     public int numTokens;
     public bool isInit;
+    public string state;
+    public bool playback_finished;
+    public int remaining_time;
 
     public static WorldJSONInfo CreateFromJSON(string jsonString)
     {

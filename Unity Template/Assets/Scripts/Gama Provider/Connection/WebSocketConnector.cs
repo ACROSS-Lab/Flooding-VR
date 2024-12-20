@@ -6,31 +6,28 @@ using WebSocketSharp;
 public abstract class WebSocketConnector : MonoBehaviour
 {
 
-    protected string DefaultIP = "10.236.10.11";
-    protected string DefaultPort = "8080";
-
-
-    protected string host ;
+     protected string host ;
      protected string port;
 
     protected bool UseMiddleware; 
 
-    private WebSocket socket; 
+    private WebSocket socket;
 
 
-    protected int HeartbeatInMs = 5000; //only for middleware mode
+    protected bool UseHeartbeat = true; //only for middleware mode
     protected bool DesktopMode = false;
-    public bool fixedProperties = true;
-   protected bool UseMiddlewareDM = true;
+    protected bool fixedProperties = true;
+    protected string DefaultIP = "localhost";
+    protected string DefaultPort = "8080";
+    protected bool UseMiddlewareDM = true; 
 
-    protected int numErrorsBeforeDeconnection = 10;
+    public int numErrorsBeforeDeconnection = 10;
     protected int numErrors = 0;
 
     void OnEnable() {
        
        // port = PlayerPrefs.GetString("PORT"); 
-        host = PlayerPrefs.GetString("IP");
-        port = DefaultPort;
+       // host = PlayerPrefs.GetString("IP");
 
         if (DesktopMode)
         {
@@ -52,13 +49,6 @@ public abstract class WebSocketConnector : MonoBehaviour
             host = DefaultIP;
             port = DefaultPort;
             
-        } else
-        {
-            if (host == null && host.Length == 0)
-            {
-                host = DefaultIP;
-                
-            }
         }
         Debug.Log("WebSocketConnector host: " + host + " PORT: " + port + " MIDDLEWARE:" + UseMiddleware);
 
@@ -66,10 +56,6 @@ public abstract class WebSocketConnector : MonoBehaviour
         socket.OnOpen += HandleConnectionOpen;
         socket.OnMessage += HandleReceivedMessage;
         socket.OnClose += HandleConnectionClosed;
-        
-        // Enable the Per-message Compression extension.
-        // Saved some bandwidth
-        socket.Compression = CompressionMethod.Deflate;
     }
 
    void OnDestroy() {
