@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Gama_Provider.Simulation;
 using QuickTest;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 //using UnityEngine.SceneManagement;
@@ -142,6 +143,7 @@ public class SimulationManager : MonoBehaviour
 
     [SerializeField] protected StatusEffectManager timer;
     [SerializeField] protected StatusEffectManager safeRateCount;
+    [SerializeField] private TextMeshProUGUI timerText;
 
     protected float LastTime;
    
@@ -327,6 +329,10 @@ public class SimulationManager : MonoBehaviour
                 timer.gameObject.SetActive(false);
             
             LastTime = infoWorld.remaining_time;
+            
+            TimeSpan timeSpan = TimeSpan.FromSeconds(Math.Max(0, (int)LastTime));
+            Debug.Log("Remaining time span: " + Math.Max(0, (int)LastTime));
+            timerText.text = timeSpan.ToString(@"mm\:ss");
         }
     }
 
