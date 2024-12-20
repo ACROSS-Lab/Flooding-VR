@@ -9,7 +9,7 @@ public class MoveVertical  : InputData
     public bool RightHand = false;
 
     public float minY = 0.0f;
-    public float maxY = 150.0f;
+    public float maxY = 1500.0f;
 
     public InputHelpers.Axis2D stick = InputHelpers.Axis2D.PrimaryAxis2D;
 
