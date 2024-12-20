@@ -1,0 +1,10 @@
+{
+  "type": "json_settings",
+  "name": "Quang Binh Flood Project",
+  "splashscreen": "./includes/splashscreen/screen.png",
+  "model_file_path": "./models/version 2/Flooding VR2.gaml",
+  "experiment_name": "Launch", 
+  "minimal_players": "0", 
+  "maximal_players": "1", 
+  "selected_monitoring": "gama_screen"
+}
